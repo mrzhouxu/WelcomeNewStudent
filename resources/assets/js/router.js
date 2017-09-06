@@ -20,5 +20,10 @@ export default new VueRouter({
             path:'/info',
             component: resolve =>void(require(['./components/Info.vue'], resolve))
         },
+        {
+            name:"test",
+            path:'/test',
+            component: resolve =>void(require(['./components/test.vue'], resolve))
+        },
     ]
 })

@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/login', 'IndexController@login');  //绑定提示页面
