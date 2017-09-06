@@ -25,3 +25,4 @@ Route::group(['prefix' => 'admin'], function (){
 
 Route::get('/admin/login', 'Admin\LoginController@index');
 Route::post('/admin/login', 'Admin\LoginController@login');
+Route::get('/admin/logins', 'Admin\LoginController@index');
