@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('index');
 });
+
+
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('/index', 'Admin\StudentController@index');
+});
