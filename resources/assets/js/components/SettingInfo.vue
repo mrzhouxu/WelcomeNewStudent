@@ -1,34 +1,37 @@
 <template>
-    <div>
+    <div  style="padding:0 8px;">
         <p class="title">完善您的个人信息</p>
         <group>
-            <x-input placeholder="请输入您的联系方式" text-align="center" v-model="phone"></x-input>
+            <x-input placeholder="请输入您的联系方式" text-align="center" v-model="stu_info.phone_num"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的家庭联系方式" text-align="center" v-model="home_phone"></x-input>
+            <x-input placeholder="请输入您的家庭联系方式" text-align="center" v-model="stu_info.family_num"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的家庭住址" text-align="center" v-model="home_address"></x-input>
+            <x-input placeholder="请输入您的家庭住址" text-align="center" v-model="stu_info.address"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的微信号" text-align="center" v-model="wx_cord"></x-input>
+            <x-input placeholder="请输入您的微信号" text-align="center" v-model="stu_info.wechat_id"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的QQ号" text-align="center" v-model="qq_cord"></x-input>
+            <x-input placeholder="请输入您的QQ号" text-align="center" v-model="stu_info.qq_id"></x-input>
         </group>
-        <x-button type="primary" class="btn" @click.native="select">提交</x-button>
+        <x-button type="primary" class="btn" @click.native="submit">提交</x-button>
+        <loading :show="loading" text="正在保存"></loading>
     </div>
 </template>
 
 <script>
-    import { XInput, Group, XButton,Grid, GridItem  } from 'vux'
+    import { XInput, Group, XButton,Grid, GridItem ,Loading,ToastPlugin } from 'vux'
+    Vue.use(ToastPlugin);
     export default {
         components: {
             XInput,
             XButton,
             Group,
             Grid, 
-            GridItem
+            GridItem,
+            Loading
         },
         data(){
             return {
@@ -37,9 +40,64 @@
                 home_address:'',
                 wx_cord:'',
                 qq_cord:'',
+                stu_info:{},
+                loading:false,
+            }
+        },
+        methods:{
+            getInfo($id){
+                axios.get('getInfo',{
+                    params:{id:$id}
+                })
+                .then(res=>{
+                    this.stu_info = res.data;
+                })
+                .catch(function(error){
+                });
+            },
+            submit(){
+                if($.trim(this.stu_info.phone_num.length) != 11 || $.trim(this.stu_info.family_num.length) != 11){
+                    this.$vux.toast.show({
+                        text: 'Loading'
+                        })
+                        this.$vux.toast.show({
+                            text: '请输入正确的联系方式！',
+                            type: 'warn'
+                        })
+                        return false;
+                }
+                this.loading = true;
+                axios.post('updateInfo',{
+                    stu_info:this.stu_info
+                })
+                .then(res=>{
+                    this.loading = false;
+                    if(res.data.status == 1){
+                        this.$router.push({ path: '/info/'+this.stu_info.id })
+                    }else if(res.data.status == 0){
+                        this.$vux.toast.show({
+                        text: 'Loading'
+                        })
+                        this.$vux.toast.show({
+                            text: '失败！',
+                            type: 'warn'
+                        })
+                    }
+                })
+                .catch(function(error){
+                    this.$vux.toast.show({
+                        text: 'Loading'
+                        })
+                        this.$vux.toast.show({
+                            text: '网络异常',
+                            type: 'warn'
+                        })
+                        return false;
+                });
             }
         },
         mounted() {
+            this.getInfo(this.$route.params.id);
         }
     }
 </script>
