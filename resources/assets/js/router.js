@@ -17,8 +17,28 @@ export default new VueRouter({
         },
         {
             name:"info",
-            path:'/info',
+            path:'/info/:id',
             component: resolve =>void(require(['./components/Info.vue'], resolve))
+        },
+         {
+            name:"map",
+            path:'/map',
+            component: resolve =>void(require(['./components/Map.vue'], resolve))
+        },
+        {
+            name:"test",
+            path:'/test',
+            component: resolve =>void(require(['./components/test.vue'], resolve))
+        },
+        {
+            name:"count",
+            path:'/admin/count',
+            component: resolve =>void(require(['./admin/Count.vue'], resolve))
+        },
+        {
+            name:"adminlogin",
+                path:'/admin/login',
+            component: resolve =>void(require(['./admin/Login.vue'], resolve))
         },
     ]
 })
