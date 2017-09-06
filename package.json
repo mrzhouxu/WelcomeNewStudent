@@ -25,6 +25,7 @@
         "vux-loader": "^1.0.58",
         "element-ui": "^1.4.3",
         "es6-promise": "^4.1.0",
-        "fastclick": "^1.0.6"
+        "fastclick": "^1.0.6",
+        "gulp-sass": "^3.1.0"
     }
 }
