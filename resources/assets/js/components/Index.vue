@@ -60,11 +60,14 @@ export default {
         id_card:this.id_card
       })
       .then(function(res){
+
         self.loading = false;
         if(res.data.status == 1){
           self.$router.push({ path: '/info/set/'+res.data.id })
         }else if(res.data.status == 2){
           alert(res.data.msg);
+        }else if(res.data.status == 3){
+          self.$router.push({ path: '/info/'+res.data.id })
         }
       })
       .catch(function(error){
