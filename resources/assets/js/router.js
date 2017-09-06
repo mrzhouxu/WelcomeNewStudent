@@ -29,6 +29,11 @@ export default new VueRouter({
             name:"count",
             path:'/admin/count',
             component: resolve =>void(require(['./admin/Count.vue'], resolve))
-        }
+        },
+        {
+            name:"adminlogin",
+                path:'/admin/login',
+            component: resolve =>void(require(['./admin/Login.vue'], resolve))
+        },
     ]
 })

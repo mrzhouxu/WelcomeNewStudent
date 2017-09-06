@@ -19,4 +19,9 @@ Route::post('/login', 'Index\IndexController@login');  //绑定提示页面
 Route::group(['prefix' => 'admin'], function (){
     Route::get('/index', 'Admin\StudentController@index');
     Route::get('/count', 'Admin\StudentController@count');
+
+    Route::get('/logout', 'Admin\LoginController@logout');
 });
+
+Route::get('/admin/login', 'Admin\LoginController@index');
+Route::post('/admin/login', 'Admin\LoginController@login');
