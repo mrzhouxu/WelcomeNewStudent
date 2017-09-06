@@ -58,11 +58,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.red {
-  color: red;
-}
-.green {
-  color: green;
-}
-</style>
