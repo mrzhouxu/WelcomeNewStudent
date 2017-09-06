@@ -9,7 +9,7 @@
       <!-- <p class="title">欢迎小石器</p> -->
       <div style="padding:0 8px;">
         <group>
-          <x-input placeholder="请输入您的身份证号码" text-align="center" v-model="id_cord"></x-input>
+          <x-input placeholder="请输入您的身份证号码" text-align="center" v-model="id_card"></x-input>
         </group>
         <!-- <x-button type="primary" class="btn">查看自己的大学信息</x-button> -->
         <x-button type="primary" class="btn" @click.native="select" >登陆签到</x-button>
@@ -44,25 +44,26 @@ export default {
   },
   data () {
     return {
-      id_cord:'',
+      id_card:'',
     }
   },
   methods: {
     select(){
-      
-      if(!$.trim(this.id_cord)){
+      if(!$.trim(this.id_card)){
         alert('请输入您的身份证号码');
         return false;
       }
       var self = this;
-      axios.get('',{
-          params:{
-              id_cord:this.id_cord
-          }
+      axios.post('login',{
+        id_card:this.id_card
       })
-      .then(function(response){
-        self.$router.push({ path: '/info/set' })
-        
+      .then(function(res){
+        console.log(res.data);
+        if(res.data.status == 1){
+          self.$router.push({ path: '/info/set' })
+        }else if(res.data.status == 2){
+          alert(res.data.msg);
+        }
       })
       .catch(function(error){
           console.log(error)
