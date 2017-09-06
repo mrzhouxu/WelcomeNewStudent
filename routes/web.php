@@ -15,3 +15,7 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/login', 'IndexController@login');  //绑定提示页面
+
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('/index', 'Admin\StudentController@index');
+});
