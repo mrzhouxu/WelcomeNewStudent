@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import { XInput, Group, XButton,Grid, GridItem,Loading  } from 'vux'
+import { XInput, Group, XButton,Grid, GridItem,Loading,ToastPlugin  } from 'vux'
+Vue.use(ToastPlugin);
 export default {
   components: {
     XInput,
@@ -40,7 +41,8 @@ export default {
     Group,
     Grid, 
     GridItem,
-    Loading
+    Loading,
+    ToastPlugin
   },
   data () {
     return {
@@ -51,7 +53,13 @@ export default {
   methods: {
     select(){
       if(!$.trim(this.id_card)){
-        alert('请输入您的身份证号码');
+        this.$vux.toast.show({
+          text: 'Loading'
+        })
+        this.$vux.toast.show({
+            text: '请输入您的身份证号码',
+            type: 'warn'
+        })
         return false;
       }
       var self = this;
@@ -60,12 +68,18 @@ export default {
         id_card:this.id_card
       })
       .then(function(res){
-
         self.loading = false;
         if(res.data.status == 1){
           self.$router.push({ path: '/info/set/'+res.data.id })
         }else if(res.data.status == 2){
-          alert(res.data.msg);
+          self.$vux.toast.show({
+            text: 'Loading'
+          })
+          self.$vux.toast.show({
+              text: res.data.msg,
+              type: 'warn'
+          })
+          return false;
         }else if(res.data.status == 3){
           self.$router.push({ path: '/info/'+res.data.id })
         }
