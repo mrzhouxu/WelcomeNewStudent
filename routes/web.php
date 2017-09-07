@@ -15,9 +15,15 @@ Route::get('/', function () {
     return view('index');
 });
 Route::post('/login', 'Index\IndexController@login');  
-Route::get('/getInfo', 'Index\IndexController@getInfo'); 
 Route::post('/updateInfo', 'Index\IndexController@updateInfo'); 
+Route::get('/getInfo/{id}', 'Admin\StudentController@getInfo');
 
 Route::group(['prefix' => 'admin'], function (){
     Route::get('/index', 'Admin\StudentController@index');
+    Route::get('/count', 'Admin\StudentController@count');
+    Route::get('/logout', 'Admin\LoginController@logout');
 });
+
+Route::get('/admin/login', 'Admin\LoginController@index');
+Route::post('/admin/login', 'Admin\LoginController@login');
+Route::get('/admin/logins', 'Admin\LoginController@index');
