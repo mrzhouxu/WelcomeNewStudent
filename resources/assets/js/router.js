@@ -12,13 +12,18 @@ export default new VueRouter({
         },
         {
             name:"settinginfo",
-            path:'/info/set',
+            path:'/info/set/:id',
             component: resolve =>void(require(['./components/SettingInfo.vue'], resolve))
         },
         {
             name:"info",
-            path:'/info',
+            path:'/info/:id',
             component: resolve =>void(require(['./components/Info.vue'], resolve))
+        },
+         {
+            name:"map",
+            path:'/map',
+            component: resolve =>void(require(['./components/Map.vue'], resolve))
         },
         {
             name:"test",

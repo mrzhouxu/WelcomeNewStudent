@@ -9,10 +9,10 @@
       <!-- <p class="title">欢迎小石器</p> -->
       <div style="padding:0 8px;">
         <group>
-          <x-input placeholder="请输入您的身份证号码" text-align="center" v-model="id_card"></x-input>
+          <x-input placeholder="请输入您的身份证号码" text-align="center" v-model="id_card" @on-enter="select"></x-input>
         </group>
         <!-- <x-button type="primary" class="btn">查看自己的大学信息</x-button> -->
-        <x-button type="primary" class="btn" @click.native="select" >登陆签到</x-button>
+        <x-button type="primary" class="btn" @click.native="select">登陆签到</x-button>
         <!-- <p class="support">技术支持：<a>三月软件</a></p> -->
         <group>
           <p class="support">技术支持：<a>三月软件小组</a></p>
@@ -27,24 +27,25 @@
           <p class="join">三月软件期待你的加入</a></p>
         </group>
       </div>
-      
-      
+      <loading :show="loading" text="正在登录"></loading>
     </div>
 </template>
 
 <script>
-import { XInput, Group, XButton,Grid, GridItem  } from 'vux'
+import { XInput, Group, XButton,Grid, GridItem,Loading  } from 'vux'
 export default {
   components: {
     XInput,
     XButton,
     Group,
     Grid, 
-    GridItem
+    GridItem,
+    Loading
   },
   data () {
     return {
       id_card:'',
+      loading:false,
     }
   },
   methods: {
@@ -54,15 +55,19 @@ export default {
         return false;
       }
       var self = this;
-      axios.post('login',{
+      this.loading = true;
+      axios.post('/login',{
         id_card:this.id_card
       })
       .then(function(res){
-        console.log(res.data);
+
+        self.loading = false;
         if(res.data.status == 1){
-          self.$router.push({ path: '/info/set' })
+          self.$router.push({ path: '/info/set/'+res.data.id })
         }else if(res.data.status == 2){
           alert(res.data.msg);
+        }else if(res.data.status == 3){
+          self.$router.push({ path: '/info/'+res.data.id })
         }
       })
       .catch(function(error){

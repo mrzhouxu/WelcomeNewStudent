@@ -6,7 +6,6 @@
         </tab>
 
         <div style="padding:15px;">
-
             <x-table full-bordered style="background-color:#fff;">
                 <thead>
                 <tr>
@@ -16,7 +15,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
                 <tr v-for="student in students">
                     <td>{{ student.name }}</td>
                     <td>{{ student.class }}</td>
@@ -27,7 +25,6 @@
             </x-table>
         </div>
         <load-more v-if="isshow" tip="正在加载"></load-more>
-
     </div>
 </template>
 
@@ -110,7 +107,4 @@
             });
         }
     }
-
-
-
 </script>
