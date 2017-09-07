@@ -36,6 +36,7 @@ class IndexController extends Controller
         if($result == 1){
             return json_encode(['status'=>1,'msg'=>"成功！"]);
         }else{
+            dd(1);
             return json_encode(['status'=>0,'msg'=>"失败！"]);
         }
     }
