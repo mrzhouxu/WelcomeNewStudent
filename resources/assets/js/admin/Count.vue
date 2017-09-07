@@ -55,7 +55,13 @@
                     }
                 }).then(response => {
                     console.log(response.data);
-                    this.students = response.data;
+                    let data = response.data;
+                    if(data.hasOwnProperty('code')){
+                        this.$router.push({
+                            path:'/admin/login',
+                        });
+                    }else
+                        this.students = response.data;
                 }).catch(function(err){
                     console.log(err);
                 });
