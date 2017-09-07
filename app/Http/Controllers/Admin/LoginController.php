@@ -25,7 +25,7 @@ class LoginController extends Controller
         $password = request('password');
 
         if($account == '1' && $password == '1'){
-            session(['admin_id', $account]);
+            session(['admin_id'=>$account]);
             return ['code' => 1, 'msg' => '登录成功'];
         }
         return ['code' => 0, 'msg' => '账号或密码错误'];
