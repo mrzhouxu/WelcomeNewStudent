@@ -96,7 +96,14 @@
                     }
                 })
                 .catch(function(error){
-                    
+                    this.loading = false;
+                    this.$vux.toast.show({
+                        text: 'Loading'
+                        })
+                        this.$vux.toast.show({
+                            text: '失败！',
+                            type: 'warn'
+                        })
                 });
             }
         },

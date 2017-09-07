@@ -43,22 +43,22 @@ class Index extends Model
     static function updateInfo($result){
         if($result['status'] == 0){
             $data = [
-                'phone_num'=>$result['phone_num'],
-                'family_num'=>$result['family_num'],
-                'address'=>$result['address'],
-                'wechat_id'=>$result['wechat_id'],
-                'qq_id'=>$result['qq_id'],
+                'phone_num'=>isset($result['phone_num'])?$result['phone_num']:'',
+                'family_num'=>isset($result['family_num'])?$result['family_num']:'',
+                'address'=>isset($result['address'])?$result['address']:'',
+                'wechat_id'=>isset($result['wechat_id'])?$result['wechat_id']:'',
+                'qq_id'=>isset($result['qq_id'])?$result['qq_id']:'',
                 'created_at'=>time(),
                 'status'=>1,
                 'updated_at'=>time(),
             ];
         }else{
             $data = [
-                'phone_num'=>$result['phone_num'],
-                'family_num'=>$result['family_num'],
-                'address'=>$result['address'],
-                'wechat_id'=>$result['wechat_id'],
-                'qq_id'=>$result['qq_id'],
+                'phone_num'=>isset($result['phone_num'])?$result['phone_num']:'',
+                'family_num'=>isset($result['family_num'])?$result['family_num']:'',
+                'address'=>isset($result['address'])?$result['address']:'',
+                'wechat_id'=>isset($result['wechat_id'])?$result['wechat_id']:'',
+                'qq_id'=>isset($result['qq_id'])?$result['qq_id']:'',
                 'updated_at'=>time(),
             ];
         }

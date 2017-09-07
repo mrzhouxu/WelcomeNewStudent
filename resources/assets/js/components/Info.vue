@@ -28,12 +28,10 @@
 					<x-input title='QQ号' :value="info['qq_id']" disabled></x-input>
 			</group>
 
-			<!-- <group>
-			     	<x-switch title="$t('Show Me')" v-model="show"></x-switch>
-			 </group> -->
-		    	<!-- <div v-transfer-dom>
+			
+		    	<div v-transfer-dom>
 		      		<alert v-model="show" :title="msg" @on-hide="onHide"> 将跳转到主页</alert>
-		    	</div> -->
+		    	</div>
 
 			<div v-transfer-dom style="width:100%;height:100%;" class="map">
 					<x-dialog v-model="show_map" class="dialog-demo" hide-on-blur>
@@ -95,8 +93,9 @@
 					                		if(response.data[0]){
 					                			self.info = response.data[1];
 					                		}else{
-					                			self.msg = response.data[1]
-					                			self.show = true				                		}
+					                			self.msg = response.data[1];
+												self.show = true;
+											}
 					                })
 						},
 				},
