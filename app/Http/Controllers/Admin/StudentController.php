@@ -29,7 +29,7 @@ class StudentController extends Controller
 	//根据用户id得到信息
 	public function getInfo($id){
 		//大小写问题
-		$number = '41152219990605515X';
+		$number = session('card_id');
 		if(!empty($number)){
 			$res = students::getInfo($id);
 			 if(!empty($res)){
