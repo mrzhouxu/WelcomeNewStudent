@@ -25,6 +25,8 @@
             </x-table>
         </div>
         <load-more v-if="isshow" tip="正在加载"></load-more>
+
+        <load-more v-if="full" tip="已加载全部数据" :show-loading="false"></load-more>
     </div>
 </template>
 
@@ -41,12 +43,14 @@
                 students: [],
                 page: 0,
                 isshow: false,
-                status: 1
+                status: 1,
+                full: false
             }
         },
         methods: {
             onClick(val){
                 this.page = 0;
+                this.full = false;
                 this.status = val;
                 axios.get('/admin/count',{
                     params:{
@@ -79,7 +83,7 @@
                 // console.log(document.body.scrollTop); // 滚动高度
                 // console.log(document.body.offsetHeight); // 文档高度
                 // 判断是否滚动到底部
-                if(document.body.scrollTop + window.innerHeight >= document.body.offsetHeight) {
+                if((document.body.scrollTop + window.innerHeight >= document.body.offsetHeight) && !this.full) {
                      console.log(sw);
                     // 如果开关打开则加载数据
                     if(sw === true){
@@ -93,12 +97,19 @@
                                 page: this.page
                             }
                         }).then(response => {
-//                            console.log(response.data);
-                            (response.data).forEach((val,index) => {
-                                this.students.push(val);
-                            });
-                            sw = true;
+                            console.log(response.data.length);
                             this.isshow = false;
+                            if(response.data.length === 0){
+                                this.full = true;
+                            }else{
+                                (response.data).forEach((val,index) => {
+                                    this.students.push(val);
+                                });
+                            }
+
+                            sw = true;
+
+
                         }).catch(function(err){
                             console.log(err);
                         });
