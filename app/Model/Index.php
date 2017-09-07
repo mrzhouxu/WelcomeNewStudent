@@ -67,5 +67,5 @@ class Index extends Model
                 ->update($data);
         return $result;
     }
-    
+
 }
