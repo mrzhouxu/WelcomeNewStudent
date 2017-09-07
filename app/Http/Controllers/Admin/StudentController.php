@@ -73,6 +73,15 @@ class StudentController extends Controller
     }
 
 
+    public function getNum(){
+        $students = Student::select(['status'])->get();
+
+        $reportNum = $students->where('status', 1)->count();
+        $noReportNum = $students->where('status', 0)->count();
+
+        return ['report' => $reportNum, 'noReport' => $noReportNum];
+    }
+
 	//根据用户id得到信息
 	public function getInfo($id){
 		//大小写问题

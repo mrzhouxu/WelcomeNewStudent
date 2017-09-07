@@ -23,7 +23,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(count1,index) in counts" :key="index" v-if="index!=counts.length-1">
+                <tr v-for="(count1, index) in counts" :key="index" v-if="index!=counts.length-1">
                     <td>{{ count1.class }}</td>
                     <td>{{ count1.enrollment }}</td>
 
@@ -34,18 +34,18 @@
                     <td class="red">{{ count1.noreportWomen }}</td>
                 </tr>
 
-                <tr>
+                <tr v-if="countsLast.enrollment">
                     <td rowspan="2">总计</td>
-                    <td rowspan="2">{{ counts[countsLen-1].enrollment }}</td>
+                    <td rowspan="2">{{ countsLast.enrollment }}</td>
 
-                    <td class="green">{{ counts[countsLen-1].reportMen }}</td>
-                    <td class="green">{{ counts[countsLen-1].reportWomen }}</td>
-                    <td class="red">{{ counts[countsLen-1].noreportMen }}</td>
-                    <td class="red">{{ counts[countsLen-1].noreportWomen }}</td>
+                    <td class="green">{{ countsLast.reportMen }}</td>
+                    <td class="green">{{ countsLast.reportWomen }}</td>
+                    <td class="red">{{ countsLast.noreportMen }}</td>
+                    <td class="red">{{ countsLast.noreportWomen }}</td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="green">{{ counts[countsLen-1].reportMen + counts[countsLen-1].reportWomen }}</td>
-                    <td colspan="2" class="red">{{ counts[countsLen-1].noreportMen + counts[countsLen-1].noreportWomen }}</td>
+                <tr v-if="countsLast.enrollment">
+                    <td colspan="2" class="green">{{ countsLast.reportMen + countsLast.reportWomen }}</td>
+                    <td colspan="2" class="red">{{ countsLast.noreportMen + countsLast.noreportWomen }}</td>
                 </tr>
 
                 </tbody>
@@ -65,7 +65,7 @@
         data () {
             return {
                 counts:{},
-                countsLen: 0
+                countsLast: {}
             }
         },
 
@@ -79,7 +79,9 @@
                         });
                     }else{
                         this.counts = data;
-                        this.countsLen = data.length;
+
+                        this.countsLast = data[data.length-1];
+
                     }
                 }).catch(function(err){
                     console.log(err);

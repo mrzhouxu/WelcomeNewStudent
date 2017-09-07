@@ -1,8 +1,12 @@
 <template>
     <div>
         <tab class="title">
-            <tab-item selected @on-item-click="onClick(1)">报到</tab-item>
-            <tab-item @on-item-click="onClick(0)">未报到</tab-item>
+            <tab-item selected @on-item-click="onClick(1)">
+                报到({{ reportnum }})
+            </tab-item>
+            <tab-item @on-item-click="onClick(0)">
+                未报到({{ noreportnum }})
+            </tab-item>
         </tab>
 
         <div class="content"  v-if="status === 1">
@@ -66,16 +70,19 @@
                 page: [0, 0],
                 isshow: false,
                 status: 1,
-                full: [false, false]
+                full: [false, false],
+                reportnum: 0,
+                noreportnum: 0,
+//                scroTop:[0, 0],
             }
         },
         methods: {
             onClick(val){
+                document.body.scrollTop = 0;
                 this.status = val;
+
             },
             info(){
-
-
                 axios.get('/admin/count',{
                     params:{
                         status: 1,
@@ -113,6 +120,23 @@
                 }).catch(function(err){
                     console.log(err);
                 });
+
+                axios.get('/admin/getNum',{
+                }).then(response => {
+                    let data = response.data;
+                    if(data.hasOwnProperty('code')){
+                        this.$router.push({
+                            path:'/admin/login',
+                        });
+                    }else{
+                        this.reportnum = data.report;
+                        this.noreportnum = data.noReport;
+                    }
+
+                }).catch(function(err){
+                    console.log(err);
+                });
+
             }
 
         },
@@ -128,6 +152,8 @@
             // console.log(document.body.scrollTop); // 滚动高度
             // console.log(document.body.offsetHeight); // 文档高度
             // 判断是否滚动到底部
+
+//                this.scroTop[this.status] = document.body.scrollTop;
 
 
                 if((document.body.scrollTop + window.innerHeight >= document.body.offsetHeight) && !this.full[this.status]) {
