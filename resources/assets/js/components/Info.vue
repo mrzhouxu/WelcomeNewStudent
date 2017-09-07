@@ -6,7 +6,8 @@
 							<x-button type="primary" class="btn" @click.native="edit" mini>编辑信息</x-button>
 					</grid-item>
 					<grid-item  class="item">
-							<x-button type="primary" class="btn" @click.native="this.$router.push({ path: '/map' })" mini >查看地图</x-button>
+							<x-button type="primary" class="btn" @click.native="show_map=!show_map" mini >查看地图</x-button>
+							<!-- <x-button type="primary" class="btn" @click.native="map" mini >查看地图</x-button> -->
 					</grid-item>
 			</grid>
 
@@ -27,24 +28,24 @@
 					<x-input title='QQ号' :value="info['qq_id']" disabled></x-input>
 			</group>
 
-			<group>
+			<!-- <group>
 			     	<x-switch title="$t('Show Me')" v-model="show"></x-switch>
-			 </group>
-		    	<div v-transfer-dom>
+			 </group> -->
+		    	<!-- <div v-transfer-dom>
 		      		<alert v-model="show" :title="msg" @on-hide="onHide"> 将跳转到主页</alert>
-		    	</div>
+		    	</div> -->
 
-			<!-- <div v-transfer-dom style="width:100%;height:100%;" class="map">
+			<div v-transfer-dom style="width:100%;height:100%;" class="map">
 					<x-dialog v-model="show_map" class="dialog-demo" hide-on-blur>
 							<div class="img-box">
-							<img src="img/banner.jpg" style="max-width:100%;height:100%;transform: rotate(90deg);">
+							<img src="img/map.jpg" style="max-width:100%;height:100%;">
 							</div>
 							<div @click="show_map=false">
 							<span class="vux-close"></span>
 							</div>
 					</x-dialog>
 			</div>
- -->
+
 	</div>
 </template>
 
@@ -76,6 +77,9 @@
 						}
 				},
 				methods:{
+						map(){
+							this.$router.push({ path: '/Map' })
+						},
 						edit(){
 								this.$router.push({ path: '/info/set/'+this.$route.params.id });
 						},
