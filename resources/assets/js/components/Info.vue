@@ -6,7 +6,7 @@
 							<x-button type="primary" class="btn" @click.native="edit" mini>编辑信息</x-button>
 					</grid-item>
 					<grid-item  class="item">
-							<x-button type="primary" class="btn" @click.native="show_map=!show_map" mini >查看地图</x-button>
+							<x-button type="primary" class="btn" @click.native="this.$router.push({ path: '/map' })" mini >查看地图</x-button>
 					</grid-item>
 			</grid>
 
@@ -34,7 +34,7 @@
 		      		<alert v-model="show" :title="msg" @on-hide="onHide"> 将跳转到主页</alert>
 		    	</div>
 
-			<div v-transfer-dom style="width:100%;height:100%;" class="map">
+			<!-- <div v-transfer-dom style="width:100%;height:100%;" class="map">
 					<x-dialog v-model="show_map" class="dialog-demo" hide-on-blur>
 							<div class="img-box">
 							<img src="img/banner.jpg" style="max-width:100%;height:100%;transform: rotate(90deg);">
@@ -44,7 +44,7 @@
 							</div>
 					</x-dialog>
 			</div>
-
+ -->
 	</div>
 </template>
 
