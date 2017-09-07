@@ -15,10 +15,10 @@ class Index extends Model
                     ->where('card_id',$id_card)
                     ->first();
         if($result){
+            $id = $result->id;
             if($result->phone_num && $result->family_num && $result->address && $result->wechat_id && $result->qq_id){
                 return ['status'=>3,'msg'=>'成功！','id'=>$id];
             }
-            $id = $result->id;
             return ['status'=>1,'msg'=>'成功！','id'=>$id];
         }else{
             return ['status'=>2,'msg'=>'身份证号码有误，请重新输入！'];
