@@ -46,7 +46,7 @@
         },
         methods:{
             getInfo($id){
-                axios.get('getInfo',{
+                axios.get('info/get',{
                     params:{id:$id}
                 })
                 .then(res=>{

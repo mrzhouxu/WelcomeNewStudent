@@ -56,7 +56,7 @@ export default {
       }
       var self = this;
       this.loading = true;
-      axios.post('login',{
+      axios.post('/login',{
         id_card:this.id_card
       })
       .then(function(res){
