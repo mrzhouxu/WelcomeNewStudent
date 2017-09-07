@@ -18,7 +18,16 @@ class IndexController extends Controller
    function getInfo(Request $request){
        $id = $request->id;
        $result = Index::getInfo($id);
-       return json_encode($result);
+       $card_id = session('card_id');
+       if($result){
+           if($result->card_id == $card_id){
+            return json_encode($result);
+           }else{
+            return json_encode(['status'=>3,'msg'=>'您没有权限！']);
+           }
+       }else{
+            return json_encode('0');
+       }
     }
 
     function updateInfo(Request $request){

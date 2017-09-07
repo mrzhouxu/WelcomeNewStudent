@@ -77,7 +77,7 @@
 				},
 				methods:{
 						edit(){
-								this.$router.push({ path: '/info/set' });
+								this.$router.push({ path: '/info/set/'+this.$route.params.id });
 						},
 						onHide () {
 						      	this.$router.push({ path: '/' })

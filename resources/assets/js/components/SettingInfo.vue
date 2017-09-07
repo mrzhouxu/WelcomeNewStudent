@@ -1,20 +1,20 @@
 <template>
-    <div  style="padding:0 8px;">
+    <div class="form">
         <p class="title">完善您的个人信息</p>
         <group>
-            <x-input placeholder="请输入您的联系方式" text-align="center" v-model="stu_info.phone_num"></x-input>
+            <x-input label-width="120px" title="联系方式" placeholder="请输入您的联系方式" text-align="left" v-model="stu_info.phone_num"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的家庭联系方式" text-align="center" v-model="stu_info.family_num"></x-input>
+            <x-input label-width="120px" title="家庭联系方式" placeholder="请输入您的家庭联系方式" text-align="left" v-model="stu_info.family_num"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的家庭住址" text-align="center" v-model="stu_info.address"></x-input>
+            <x-input label-width="120px" title="家庭住址" placeholder="请输入您的家庭住址" text-align="left" v-model="stu_info.address"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的微信号" text-align="center" v-model="stu_info.wechat_id"></x-input>
+            <x-input label-width="120px" title="微信号" placeholder="请输入您的微信号" text-align="left" v-model="stu_info.wechat_id"></x-input>
         </group>
         <group>
-            <x-input placeholder="请输入您的QQ号" text-align="center" v-model="stu_info.qq_id"></x-input>
+            <x-input label-width="120px" title="QQ号" placeholder="请输入您的QQ号" text-align="left" v-model="stu_info.qq_id"></x-input>
         </group>
         <x-button type="primary" class="btn" @click.native="submit">提交</x-button>
         <loading :show="loading" text="正在保存"></loading>
@@ -50,6 +50,17 @@
                     params:{id:$id}
                 })
                 .then(res=>{
+                    if(res.data.status == 3){
+                        this.$vux.toast.show({
+                        text: 'Loading'
+                        })
+                        this.$vux.toast.show({
+                            text: '没有权限！',
+                            type: 'warn'
+                        })
+                        this.$router.push({ path: '/' })
+                        return false;
+                    }
                     this.stu_info = res.data;
                 })
                 .catch(function(error){
@@ -85,14 +96,7 @@
                     }
                 })
                 .catch(function(error){
-                    this.$vux.toast.show({
-                        text: 'Loading'
-                        })
-                        this.$vux.toast.show({
-                            text: '网络异常',
-                            type: 'warn'
-                        })
-                        return false;
+                    
                 });
             }
         },
@@ -113,4 +117,16 @@
     font-size:16px;
     padding:4px;
   }
+  .weui-input{
+      color:#777;
+  }
 </style>
+<style>
+.form{
+    padding:0 8px;
+}
+.form .weui-input{
+      color:#777;
+}
+</style>
+

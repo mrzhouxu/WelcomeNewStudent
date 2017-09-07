@@ -29,8 +29,8 @@ class StudentController extends Controller
 	//根据用户id得到信息
 	public function getInfo($id){
 		//大小写问题
-		$number = '41152219990605515X';
-		//if(!empty($number)){
+		$number = session('card_id');
+		if(!empty($number)){
 			$res = students::getInfo($id);
 			 if(!empty($res)){
 			 	if($res->card_id==$number){
@@ -39,8 +39,8 @@ class StudentController extends Controller
 			 		return json_encode([0,'没有权限访问']);
 			} else
 			 	return json_encode([0,'没有这个用户']);
-		 // }else{
-		 // 	return json_encode([0,'请重新登录']);
-		 // }
+		 }else{
+		 	return json_encode([0,'请重新登录']);
+		 }
 	}
 }
