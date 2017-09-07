@@ -40,5 +40,10 @@ export default new VueRouter({
                 path:'/admin/login',
             component: resolve =>void(require(['./admin/Login.vue'], resolve))
         },
+        {
+            name:"numcount",
+                path:'/admin/numcount',
+            component: resolve =>void(require(['./admin/NumCount.vue'], resolve))
+        },
     ]
 })

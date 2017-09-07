@@ -26,6 +26,53 @@ class StudentController extends Controller
 
         return $students;
     }
+
+    public function getCount(){
+        $students = Student::select(['class', 'sex', 'status'])->get();
+
+
+        $classs = $students->groupBy('class')->toArray();
+
+        $counts = [];   //所有统计信息
+
+        $sum['class'] = '总计';  // 总计数
+        $sum['enrollment'] = $students->count();  //班级录取人数
+        $sum['reportMen'] = 0;
+        $sum['reportWomen'] = 0;
+        $sum['noreportMen'] = 0;
+        $sum['noreportWomen'] = 0;
+
+
+
+        $i = 0;
+
+
+        $report = [];
+        foreach ($classs as $key => $class) {
+            $counts[$i]['class'] = $key; //获取班级
+            $classcol = collect($class);
+            $counts[$i]['enrollment'] = $classcol->count(); //获取班级录取人数
+
+
+            $counts[$i]['reportMen'] = $classcol->where('status',1)->where('sex','男')->count();$counts[$i]['reportWomen'] = $classcol->where('status',1)->where('sex','女')->count();
+            $counts[$i]['noreportMen'] = $classcol->where('status',0)->where('sex','男')->count();
+            $counts[$i]['noreportWomen'] = $classcol->where('status',0)->where('sex','女')->count();
+
+
+            $sum['reportMen'] += $counts[$i]['reportMen'];
+            $sum['reportWomen'] += $counts[$i]['reportWomen'];
+            $sum['noreportMen'] += $counts[$i]['noreportMen'];
+            $sum['noreportWomen'] += $counts[$i]['noreportWomen'];
+
+
+            $i++;
+        }
+
+        $counts[$i] = $sum;
+        return ($counts);
+    }
+
+
 	//根据用户id得到信息
 	public function getInfo($id){
 		//大小写问题

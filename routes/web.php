@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/index', 'Admin\StudentController@index');
     Route::get('/count', 'Admin\StudentController@count');
     Route::get('/logout', 'Admin\LoginController@logout');
+
+    Route::get('/getcount', 'Admin\StudentController@getCount');
 });
 
 Route::get('/admin/login', 'Admin\LoginController@index');

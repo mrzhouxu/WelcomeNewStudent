@@ -1,11 +1,11 @@
 <template>
     <div>
-        <tab>
+        <tab class="title">
             <tab-item selected @on-item-click="onClick(1)">报到</tab-item>
             <tab-item @on-item-click="onClick(0)">未报到</tab-item>
         </tab>
 
-        <div style="padding:15px;" v-if="status === 1">
+        <div class="content"  v-if="status === 1">
             <x-table full-bordered style="background-color:#fff;">
                 <thead>
                 <tr>
@@ -25,7 +25,7 @@
             </x-table>
         </div>
 
-        <div style="padding:15px;" v-if="status === 0">
+        <div class="content"  v-if="status === 0">
             <x-table full-bordered style="background-color:#fff;">
                 <thead>
                 <tr>
@@ -175,5 +175,18 @@
         }
     }
 </script>
+
+<style scoped>
+    .title{
+        position: fixed !important;
+        width: 100%;
+        z-index: 10;
+        top: 0;
+        left: 0;
+    }
+    .content{
+        margin-top: 50px;
+    }
+</style>
 
 
